@@ -18,9 +18,11 @@ Need to implement CI CD pipeline on jenkins as per below instructions –
 ## Implementation:
 1.	Create Jenkins Master and slave infrastructure at AWS
 create Jenkins master and slave architecture in AWS like below in AWS . here one instance will be Jenkins master and other two instances will be jenkins slave nodes namely Testing server and Production server 
+
 ![title](./picture/picture1.png)
 
 ** To create the infrastrucre perform below steps:
 
 * Launch three instance at AWS with Ubuntu:18.04 AMI , note that all three nodes need to be in same aviability zone, otherwise AWS can charge for bandwidth for different aviability zone.
+
 ![title](./picture/picture2.png)
