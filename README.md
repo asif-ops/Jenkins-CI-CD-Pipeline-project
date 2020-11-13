@@ -21,15 +21,15 @@ create Jenkins master and slave architecture in AWS like below in AWS . here one
 
 ![title](./picture/picture1.png)
 
-** To create the infrastrucre perform below steps:
+### To create the infrastrucre perform below steps:
 
 * Launch three instance at AWS with Ubuntu:18.04 AMI , note that all three nodes need to be in same aviability zone, otherwise AWS can charge for bandwidth for different aviability zone.
 
 ![title](./picture/picture2.png)
 
-** Allow port 22, 80, ICMP, 8080 in security group 
+* Allow port 22, 80, ICMP, 8080 in security group 
 
-** Create ssh key at Jenkins master node and copy them to slaves nodes authorized_keys section and login from jenkins master node to all slave nodes once
+* Create ssh key at Jenkins master node and copy them to slaves nodes authorized_keys section and login from jenkins master node to all slave nodes once
 ```
 ubuntu@ip-172-31-47-27:~$ cd ~ 
 ubuntu@ip-172-31-47-27:cd .ssh/
