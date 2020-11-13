@@ -1,4 +1,4 @@
-# Create a Jenkins CI CD pipeline to deploy project website on AWS
+# Create a Jenkins CI CD pipeline to deploy project website using docker container on AWS
 ## Problem statement:
 Need to implement CI CD pipeline on jenkins as per below instructions –
 * Create a jenkins master node and two slave nodes (slave 1 Test server) and (slave2 Production server) at AWS.
