@@ -369,6 +369,8 @@ Jenkins do new build job:
 
 ![title](./picture/picture30.png)
 
+* after this step finish, Now if we do any cahnge in git reposotry source code then jenkins git webhook will automically sense this cahnge and it will initiate a build job on testing server first and then it will trigger a build job at production like above steps
+
 * ---------------Finish , build pipeline on jenkins done successfully----
 
 
