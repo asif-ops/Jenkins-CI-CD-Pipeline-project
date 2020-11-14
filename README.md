@@ -105,19 +105,37 @@ sudo chmod 777 /home/ubuntu/jenkins
 ```
 then perform this step at Jenkins master GUI
 ```
-Jenkins master GUI -> Manage Jenkins -> Manage node and cloud -> New node -> then below parameters 
+Jenkins master GUI -> 
+Manage Jenkins -> 
+Manage node and cloud -> 
+New node ->
+
+then below parameters 
+
 Node name = testing server
-Click permanent agent 
+
+Click permanent agent
+
 Remote root directory = /home/ubuntu/jenkins
+
 Usage = Use this node as much as possible 
+
 Launch method = Launch agents via SSH
+
 Host = private ip of the testing server  (172.31.36.7)
+
 Then press Add key and give following parameters :
+
 Domain: Global
+
  Kind : SSH username with private key
-Username : ubuntru
+
+Username : ubuntu
+
 Private key : copy private key from jenkins master file .ssh/id_rsa file and paste here
+
 Host Key Verification Strategy : Manually trusted verification strategy
+
 ```
 
 ![title](./picture/picture3.png)
