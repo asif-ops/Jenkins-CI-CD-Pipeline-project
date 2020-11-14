@@ -127,3 +127,62 @@ Host Key Verification Strategy : Manually trusted verification strategy
 Similar way connect production server as well. Then finally you will able to see two slave nodes testing and production server as synced state as showing below
 
 ![title](./picture/picture6.png)
+
+2.	Check git repository: 
+remore git reposatory for project website source code 'https://github.com/asif-ops/asif-ops.github.io.git' directory where we can see the sample project website source code and a dockerfile exists as showing below:
+
+![title](./picture/picture7.png)
+
+Content of the docker file is showing following. the purpose of this docker file is to deploy a docker container at target slave node with ubuntu 18.04 image and install apache service and add project cloned website source code (mainly specified: index.html and src directory) to apache /var/www/html directory. This finally start the apache service.
+
+```
+FROM ubuntu:18.04
+RUN apt-get update -y
+RUN apt-get install apache2 -y
+ADD . /var/www/html/
+CMD ["apache2ctl","-D","FOREGROUND"]
+```
+
+3.	Install docker at slave nodes:
+
+To install the project on slaves nodes need to install the docker first, run below commands at slave nodes
+```
+sudo apt-get update
+sudo apt-get install docker.io –y
+```
+
+4.	Configure build job for Testing server
+
+First create job for testing server at Jenkins GUI , following steps:
+Jenkins GUI dashboard-> Create a job -> Freestyle project -> Enter a item name i.e slave_tesating -> Ok -> GitHub project -> Project URL = https://github.com/asif-ops/asif-ops.github.io.git -> Source Code Management -> Git -> Repository URL = = https://github.com/asif-ops/asif-ops.github.io.git -> Restrict where this project can be run -> Label expression = testing (as this project will run at testing so restricting to testing server only by this option) -> Save -> So now we can check connections status between jenkins master and slave 
+
+Below is the screenshot of the important steps below 
+
+![title](./picture/picture8.png)
+![title](./picture/picture9.png)
+![title](./picture/picture10.png)
+
+Now click on “Build Now” and check whether build step success or not , if the build button show blue color then build step is success 
+
+![title](./picture/picture11.png)
+
+After build now we see that build process is successful as build process is showing blue color 
+
+![title](./picture/picture12.png)
+
+Now login to testing server and check that whether build step is success or not. We see that at under /home/ubuntu/jenkins/workspace/testing_slave  our remote git repository is created as showing below :
+
+```
+ubuntu@ip-172-31-12-142:~/jenkins/workspace/testing_slave$ pwd
+/home/ubuntu/jenkins/workspace/testing_slave
+ubuntu@ip-172-31-12-142:~/jenkins/workspace/testing_slave$ ls
+Dockerfile  docker_check.sh  index.html  src
+```
+
+if I go to workspace of testing sever at jenkins  GUI then it also shows content of the git repository . So that means from our master Jenkins we can successfully can connect to our slave node and apply job successfully
+
+![title](./picture/picture13.png)
+
+Now go back to configure the build job 
+
+![title](./picture/picture14.png)
