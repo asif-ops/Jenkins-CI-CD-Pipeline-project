@@ -242,7 +242,26 @@ Finally we can browse the website at instance public IP at por t82 to see the we
 
 Now configure the Production server build job same like Testing server  as per below steps:
 ```
-Jenkins GUI dashboard -> Free style project -> New Item -> Enter an item name: Prodcuction server ->  Jenkins GUI dashboard-> Create a job -> Freestyle project -> Enter a item name i.e slave_tesating -> Ok -> GitHub project -> Project URL = https://github.com/asif-ops/asif-ops.github.io.git -> Source Code Management -> Git -> Repository URL = = https://github.com/asif-ops/asif-ops.github.io.git -> Restrict where this project can be run -> Label expression = production (as this project will run at production so restricting to production server only by this option) -> Build Step -> Execute shell commands (here use the same commands as testing server ) -> Save -> Run the build step and verify whether the production server has deploy the project successfully or not 
+Jenkins GUI dashboard -> 
+Free style project -> 
+New Item -> 
+Enter an item name: Prodcuction server ->  
+Jenkins GUI dashboard-> 
+Create a job -> 
+Freestyle project -> 
+Enter a item name i.e slave_tesating -> 
+Ok -> 
+GitHub project -> 
+Project URL = https://github.com/asif-ops/asif-ops.github.io.git -> 
+Source Code Management -> 
+Git -> 
+Repository URL = = https://github.com/asif-ops/asif-ops.github.io.git -> 
+Restrict where this project can be run -> 
+Label expression = production (as this project will run at production so restricting to production server only by this option) -> 
+Build Step -> 
+Execute shell commands (here use the same commands as testing server ) -> 
+Save -> 
+Run the build step and verify whether the production server has deploy the project successfully or not 
 ```
 Execute shell will basically run shell commands that need to run to perform the build step 
 this will make this script file executable. function of this script 
@@ -268,7 +287,13 @@ Above steps we found that build job running succesfully at both production and t
 Now we need to create a job where a job which will deploy job at production server
 once job done successfully at testing server. To do that follow below steps:
 ```
-Jenkins GUI ->  testing  server -> Configure -> Post-build Actions  -> Select “Build other projects” from dropdown -> Projects to build = Prodcuction server -> Trigger only build is stable
+Jenkins GUI ->  
+testing  server -> 
+Configure -> 
+Post-build Actions  -> 
+Select “Build other projects” from dropdown -> 
+Projects to build = Prodcuction server -> 
+Trigger only build is stable
 ```
 Now test the build process by build now on testing serve “Builld now”. After test we found that build process for testing server and after that build job production is also successful 
 first, Testing server build job , if succcess then post build action below 
@@ -279,11 +304,23 @@ Browse production server ip on port 82 and found that project is website is succ
 
 First install the pipeline plugin by:
 ```
-Jenkins GUI dashboard ->  Manage jenkins -> Manage plugins -> Availavble -> search “build pipeline” -> Build Pipeline -> Install without restart 
+Jenkins GUI dashboard ->  
+Manage jenkins -> 
+Manage plugins ->
+ Availavble -> 
+ search “build pipeline” -> 
+ Build Pipeline -> 
+ Install without restart 
 ```
 Now start create build pipeline view 
 ```
-Jenkins GUI dashboard -> click + sign -> select “Build pipeline view” -> just give a view name -> ok -> Select initial Job = Testing server -> OK 
+Jenkins GUI dashboard -> 
+click + sign -> 
+select “Build pipeline view” -> 
+just give a view name -> 
+ok -> 
+Select initial Job = Testing server -> 
+OK 
 ```
 ![title](./picture/picture22.png)
 
@@ -298,12 +335,21 @@ Now click on “run” on same page and we found that Buile pipeline CICD has ru
 8.	Create Web hook to initiate job when commit has made at GIT repository 
 
 ```
-Jenkins GUI dashboard -> Testing server -> Configure -> Build Triggers -> GitHub hook trigger for GITScm polling -> Save 
+Jenkins GUI dashboard -> 
+Testing server -> 
+Configure -> 
+Build Triggers -> 
+GitHub hook trigger for GITScm polling -> 
+Save 
 ```
 ![title](./picture/picture25.png)
 
 ```
-Now go to github repository -> settings -> Webhooks -> Add Webhook  -> Payload URL = Your jenkins server IP:port - github-webhook/ (in this case http://13.232.199.239:8080/github-webhook/) > Add webhook 
+Now go to github repository -> 
+settings -> 
+Webhooks -> 
+Add Webhook  -> 
+Payload URL = Your jenkins server IP:port - github-webhook/ (in this case http://13.232.199.239:8080/github-webhook/) > Add webhook 
 ```
 ![title](./picture/picture26.png)
 
