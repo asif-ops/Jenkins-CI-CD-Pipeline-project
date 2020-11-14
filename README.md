@@ -186,3 +186,130 @@ if I go to workspace of testing sever at jenkins  GUI then it also shows content
 Now go back to configure the build job 
 
 ![title](./picture/picture14.png)
+
+* Build -> Execute shell 
+Execute shell will basically run shell commands that need to run to perform the build step 
+this will make this script file executable. function of this script 
+file is to rm any running container from the testing server if exists
+```
+sudo chmod +x docker_check.sh
+sudo ./docker_check.sh  > /home/ubuntu/jenkins/output.txt 
+docker buid
+sudo docker build . -t web
+docker run the website on port 82
+sudo docker run -it -d -p 82:80 web
+check docker process
+sudo docker ps 
+then check website on localhost on port 82
+sudo curl localhost:82
+```
+Configure -> Build -> Execute shell 
+
+![title](./picture/picture15.png)
+
+Now “Save” . Our job now has saved and next thing we need to do lets go ahead and run this job .Lets go to jenkins dash board and run “Build Now” 
+
+![title](./picture/picture16.png)
+
+Now we see the build process is success for this step
+
+![title](./picture/picture17.png)
+
+Also we can see the console output of this build process for the log if there is any error 
+Finally we can browse the website at instance public IP at por t82 to see the website content as showing bellow . this is the project website , which tested at testing sever successfully 
+
+![title](./picture/picture18.png)
+
+5.	Configure build job for Production server
+
+Now configure the Production server build job same like Testing server  as per below steps:
+```
+Jenkins GUI dashboard -> Free style project -> New Item -> Enter an item name: Prodcuction server ->  Jenkins GUI dashboard-> Create a job -> Freestyle project -> Enter a item name i.e slave_tesating -> Ok -> GitHub project -> Project URL = https://github.com/asif-ops/asif-ops.github.io.git -> Source Code Management -> Git -> Repository URL = = https://github.com/asif-ops/asif-ops.github.io.git -> Restrict where this project can be run -> Label expression = production (as this project will run at production so restricting to production server only by this option) -> Build Step -> Execute shell commands (here use the same commands as testing server ) -> Save -> Run the build step and verify whether the production server has deploy the project successfully or not 
+```
+Execute shell will basically run shell commands that need to run to perform the build step 
+this will make this script file executable. function of this script 
+file is to remove any running container from the production server if exists
+```
+sudo chmod +x docker_check.sh
+sudo ./docker_check.sh  > /home/ubuntu/jenkins/output.txt 
+docker buid
+sudo docker build . -t web
+docker run the website on port 82
+sudo docker run -it -d -p 82:80 web
+check docker process
+sudo docker ps 
+then check website on localhost on port 82
+sudo curl localhost:82
+```
+Now we see the build project color if it is blue, that build job is running successfully 
+
+Now we can browse the production server public IP at port 82 and can see the website contents as showing below picture. Now testing is successfully at both production and testing server. At coming section we will see how to make a job where it will run job at production server after job successfully run at testing server.
+
+6.	Configure job; after Test server job done success it will build job for Production server
+Above steps we found that build job running succesfully at both production and testing server. 
+Now we need to create a job where a job which will deploy job at production server
+once job done successfully at testing server. To do that follow below steps:
+```
+Jenkins GUI ->  testing  server -> Configure -> Post-build Actions  -> Select “Build other projects” from dropdown -> Projects to build = Prodcuction server -> Trigger only build is stable
+```
+Now test the build process by build now on testing serve “Builld now”. After test we found that build process for testing server and after that build job production is also successful 
+first, Testing server build job , if succcess then post build action below 
+second, Production server build job 
+Browse production server ip on port 82 and found that project is website is successful l. 
+
+7.	Create Pipeline view to run the job
+
+First install the pipeline plugin by:
+```
+Jenkins GUI dashboard ->  Manage jenkins -> Manage plugins -> Availavble -> search “build pipeline” -> Build Pipeline -> Install without restart 
+```
+Now start create build pipeline view 
+```
+Jenkins GUI dashboard -> click + sign -> select “Build pipeline view” -> just give a view name -> ok -> Select initial Job = Testing server -> OK 
+```
+![title](./picture/picture22.png)
+
+Then finally Build view will look like below 
+
+![title](./picture/picture23.png)
+
+Now click on “run” on same page and we found that Buile pipeline CICD has run successfully at slave node first and then it run the build at production node as showing below 
+
+![title](./picture/picture24.png)
+
+8.	Create Web hook to initiate job when commit has made at GIT repository 
+
+```
+Jenkins GUI dashboard -> Testing server -> Configure -> Build Triggers -> GitHub hook trigger for GITScm polling -> Save 
+```
+![title](./picture/picture25.png)
+
+```
+Now go to github repository -> settings -> Webhooks -> Add Webhook  -> Payload URL = Your jenkins server IP:port - github-webhook/ (in this case http://13.232.199.239:8080/github-webhook/) > Add webhook 
+```
+![title](./picture/picture26.png)
+
+![title](./picture/picture27.png)
+
+Then if everything working fine then  it will show you a tick mark as show below
+
+![title](./picture/picture28.png)
+
+Now commit some changes to your Git hub repository.  In this case I did some change at index.html file and push the change to git hub . now as soon new code has been pushed to github then jenkins build starts job and job done successfully 
+Git hub updated:
+
+![title](./picture/picture29.png)
+
+Jenkins do new build job:
+
+
+![title](./picture/picture30.png)
+
+* ---------------Finish , build pipeline on jenkins done successfully----
+
+
+
+
+
+
+
